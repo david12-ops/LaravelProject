@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Database\Events\StatementPrepared;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('surname', 255);
+            $table->string('name', 30)->unique();
+            $table->string('nationality', 15);
+            $table->integer('yearOfBirth');
             $table->timestamps();
         });
+        //DB:statement("ALTER TABLE authors ADD CONSTRAINT pk_check_date Check(yearOfBirth >= 1000 AND yearOfBirth <= YEAR(CURDATE(())");
     }
 
     /**

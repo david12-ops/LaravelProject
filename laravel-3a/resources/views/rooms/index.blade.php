@@ -1,6 +1,6 @@
 <x-app-layout>
     @if(session('success'))
-        <div class="">{{session('success')}}</div>
+    <div class="">{{session('success')}}</div>
     @endif
     <table>
         <thead>
@@ -22,21 +22,21 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($rooms as $room)
+            @foreach($rooms as $room)
             <tr>
                 <td><a href="{{route('rooms.show', $room)}}">{{$room->name}}</a></td>
                 <td>{{$room->no}}</td>
                 <td>{{$room->phone}}</td>
                 <td>
                     <a href="{{route('rooms.edit', $room)}}">Edit</a>
-                    <form method="post" action="{{route('rooms.destroy', $room)}}" onsubmit="return('Opravdu chcete smazat?')">
+                    <form method="post" action="{{route('rooms.destroy', $room)}}" onsubmit="return confirm('Opravdu chcete smazat?')">
                         @csrf
                         @method('delete')
                         <input type="submit" value="Delete">
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
     <a href="{{route('rooms.create')}}">Založit novou</a>

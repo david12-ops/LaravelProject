@@ -11,20 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        //     'year' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
+
         Schema::create('cds', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->string('name', 20)->unique();
             $table->integer('year');
             $table->integer('genre_id')->unsigned();
             $table->integer('auth_id')->unsigned();
             $table->foreign('genre_id')
                 ->references('id')
-                ->on('genres');
+                ->on('genres')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('auth_id')
                 ->references('id')
-                ->on('authors');
+                ->on('authors')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
+        //DB::statement("ALTER TABLE cds ADD CONSTRAINT  check_year_range CHECK (year > 1000 && year < YEAR(CURDATE())");
     }
 
     /**

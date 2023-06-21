@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-    protected $fillable = ['name', 'surname'];
+    protected $fillable = ['name', 'nationality', 'yearOfBirth'];
     use HasFactory;
 
     public function cds()

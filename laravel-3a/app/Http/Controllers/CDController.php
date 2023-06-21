@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Cd;
+use App\Models\Genre;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 class CDController extends Controller
 {
@@ -23,20 +27,20 @@ class CDController extends Controller
      */
     public function create(): View
     {
-        return view('cds.create');
+        return view('cds.create', ['authors' =>  Author::all(), 'genres' =>  Genre::all()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //auth id, cover, genre id
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'year' => 'required|numeric|max:4',
-            'auth id' => 'numeric|max:50',
-            'genre_id' => 'numeric|max:50'
+            'name' => 'required|string|max:255|unique:cds,name',
+            'year' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
+            'auth_id' => 'required|numeric|exists:authors,id',
+            'genre_id' => 'required|numeric|exists:genres,id'
         ]);
 
         Cd::create($validated);
@@ -56,20 +60,25 @@ class CDController extends Controller
      */
     public function edit(Cd $cd)
     {
-        return view('cds.edit', ['Cd' => $cd]);
+
+        return view('cds.edit', [
+            'Cd' => $cd,
+            'genres' => Genre::all(),
+            'authors' => Author::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cd $cd)
+    public function update(Request $request, Cd $cd): RedirectResponse
     {
 
         $validated = $request->validate([
-            'name' => 'required|unique:cds,$Cd->id|max:255',
-            'year' => 'required|numeric|max:9999|min:1000',
-            'auth id' => 'numeric|max:50',
-            'genre_id' => 'numeric|max:50'
+            'name' => 'required|string|max:20|unique:cds,name,' . $cd->id,
+            'year' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
+            'auth_id' => 'required|numeric|exists:authors,id',
+            'genre_id' => 'required|numeric|exists:genres,id'
         ]);
 
         $cd->update($validated);

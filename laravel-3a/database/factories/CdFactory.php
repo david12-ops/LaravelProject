@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +19,11 @@ class CdFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->unique()->firstName,
             'auth_id' => function () {
                 return \App\Models\Author::inRandomOrder()->first()->id;
             },
-            'year' => $this->faker->year,
+            'year' => $this->faker->numberBetween(1000, Carbon::now()->year),
             'genre_id' => function () {
                 return \App\Models\Genre::inRandomOrder()->first()->id;
             },

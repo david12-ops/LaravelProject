@@ -4,6 +4,7 @@
         <div>Název: {{$room->name}}</div>
         <div>Číslo: {{$room->no}}</div>
         <div>Telefon: {{$room->phone ?: '-'}}</div>
+        <div>Datum přidání/vytvoření: {{$room->created_at}}</div>
 
         <h2>Seznam zaměstnanců</h2>
         <ul>

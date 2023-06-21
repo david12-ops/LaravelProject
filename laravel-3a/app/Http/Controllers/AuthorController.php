@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 class AuthorController extends Controller
 {
@@ -29,12 +31,13 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => "required|string|max:255",
+            'name' => 'required|string|max:30|unique:authors,name',
+            'nationality' => 'required|string|max:15',
+            'yearOfBirth' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
+
         ]);
 
         Author::create($validated);
@@ -60,15 +63,17 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, Author $author): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => "required|unique:authors,$author->id|max:255",
+            'name' => 'required|string|max:30|unique:authors,name,' . $author->id,
+            'nationality' => 'required|string|max:15',
+            'yearOfBirth' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
+
         ]);
 
         $author->update($validated);
-        return redirect(route('autors.index'))->with('success', "Autor byl upraven");
+        return redirect(route('authors.index'))->with('success', "Autor byl upraven");
     }
 
     /**
