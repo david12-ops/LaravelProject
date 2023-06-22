@@ -18,21 +18,19 @@ return new class extends Migration
             $table->id();
             $table->string('name', 20)->unique();
             $table->integer('year');
-            $table->integer('genre_id')->unsigned();
-            $table->integer('auth_id')->unsigned();
+            $table->integer('genre_id')->unsigned()->nullable();
+            $table->integer('author_id')->unsigned();
             $table->foreign('genre_id')
                 ->references('id')
                 ->on('genres')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('auth_id')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('author_id')
                 ->references('id')
                 ->on('authors')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onDelete('set null');
             $table->timestamps();
         });
-        //DB::statement("ALTER TABLE cds ADD CONSTRAINT  check_year_range CHECK (year > 1000 && year < YEAR(CURDATE())");
     }
 
     /**

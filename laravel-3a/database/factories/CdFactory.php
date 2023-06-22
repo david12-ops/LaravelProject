@@ -20,7 +20,7 @@ class CdFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->firstName,
-            'auth_id' => function () {
+            'author_id' => function () {
                 return \App\Models\Author::inRandomOrder()->first()->id;
             },
             'year' => $this->faker->numberBetween(1000, Carbon::now()->year),

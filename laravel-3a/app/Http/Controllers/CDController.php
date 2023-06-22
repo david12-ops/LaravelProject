@@ -39,7 +39,7 @@ class CDController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:cds,name',
             'year' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
-            'auth_id' => 'required|numeric|exists:authors,id',
+            'author_id' => 'required|numeric|exists:authors,id',
             'genre_id' => 'required|numeric|exists:genres,id'
         ]);
 
@@ -77,7 +77,7 @@ class CDController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:20|unique:cds,name,' . $cd->id,
             'year' => 'required|numeric|min:1000|max:' . Carbon::now()->year,
-            'auth_id' => 'required|numeric|exists:authors,id',
+            'author_id' => 'required|numeric|exists:authors,id',
             'genre_id' => 'required|numeric|exists:genres,id'
         ]);
 

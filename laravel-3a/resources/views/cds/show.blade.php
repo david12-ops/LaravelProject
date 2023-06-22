@@ -6,7 +6,11 @@
         <h2>Autoři</h2>
         <div><a href="{{route('authors.show', $Cd->author)}}">{{$Cd->author->name ?: '-'}}</a></div>
         <h2>Žánry</h2>
-        <div><a href="{{route('genres.show', $Cd->genre)}}">{{$Cd->genre->name ?: '-'}}</a></div>
+        @if ($Cd->genre)
+        <div><a href="{{route('genres.show', $Cd->genre)}}">{{$Cd->genre->name}}</a></div>
+        @else
+        <div>-</div>
+        @endif
         <div>Datum přidání/vytvoření: {{$Cd->created_at}}</div>
     </div>
     <a href="{{route('cds.index')}}">Zpět</a>

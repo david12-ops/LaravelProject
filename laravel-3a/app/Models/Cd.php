@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cd extends Model
 {
-    protected $fillable = ['name', 'auth_id', 'year',  'genre_id'];
+    protected $fillable = ['name', 'author_id', 'year',  'genre_id'];
     use HasFactory;
 
     public function author()
     {
-        return $this->belongsTo(Author::class, 'auth_id');
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function genre()

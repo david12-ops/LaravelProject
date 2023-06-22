@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Cd;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -81,7 +82,11 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        $author->delete();
-        return redirect(route('authors.index'))->with('success', "Autor byl smazán");
+        if ($author->cds()->count() == 0) {
+            $author->delete();
+            return redirect(route('authors.index'))->with('success', "Autor byl smazán");
+        }
+
+        return redirect(route('authors.index'))->with('error', "Nelze smazat autora, protože má cd v db!");
     }
 }

@@ -18,13 +18,13 @@
             </select>
             <x-input-error :messages="$errors->get('genre_id')" class="mt-2" />
 
-            <label for="auth_id">Vyber autora:</label>
-            <select name="auth_id" id="auth_id" class="@error('auth_id') is-invalid @enderror block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" value="{{ old('auth_id')}}">
+            <label for="author_id">Vyber autora:</label>
+            <select name="author_id" id="author_id" class="@error('author_id') is-invalid @enderror block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" value="{{ old('author_id')}}">
                 @foreach($authors as $author){
                 <option value="{{$author->id}}">{{$author->name}}</option>
                 }@endforeach
             </select>
-            <x-input-error :messages="$errors->get('auth_id')" class="mt-2" />
+            <x-input-error :messages="$errors->get('author_id')" class="mt-2" />
             <x-primary-button class="mt-4">Odeslat</x-primary-button>
         </form>
 

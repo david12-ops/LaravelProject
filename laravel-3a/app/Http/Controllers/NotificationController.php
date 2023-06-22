@@ -6,9 +6,10 @@ use Illuminate\View\View;
 
 class NotificationController extends Controller
 {
-    public function showNotification(Request $request) : View {
-       $message = $request->session()->get('success');
+    public function showNotification(Request $request): View
+    {
 
-       return view('notification', ['message' => $message]);
+        $message = $request->session()->get('success');
+        return view('notification', ['message' => $message]);
     }
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
     @if(session('success'))
-    <div class="">{{session('success')}}</div>
+    <div class="" style="color: #006400;">{{session('success')}}</div>
     @endif
     <table>
         <thead>
@@ -26,7 +26,13 @@
             <tr>
                 <td><a href="{{route('cds.show', $Cd)}}">{{$Cd->name}}</a></td>
                 <td>{{$Cd->year}}</td>
+                @if ($Cd->genre)
                 <td><a href="{{route('genres.show', $Cd->genre)}}">{{$Cd->genre->name}}</a></td>
+                @else
+                <td>
+                    <div>-</div>
+                </td>
+                @endif
                 <td>
                     <a href="{{route('cds.edit', $Cd)}}">Edit</a>
                     <form method="post" action="{{route('cds.destroy', $Cd)}}" onsubmit="return confirm('Opravdu chcete smazat?')">

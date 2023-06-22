@@ -1,6 +1,9 @@
 <x-app-layout>
     @if(session('success'))
-    <div class="">{{session('success')}}</div>
+    <div class="" style="color: #006400;">{{session('success')}}</div>
+    @endif
+    @if(session('error'))
+    <div class="" style="color: Red">{{session('error')}}</div>
     @endif
     <table>
         <thead>

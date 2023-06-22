@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('yearOfBirth');
             $table->timestamps();
         });
-        //DB:statement("ALTER TABLE authors ADD CONSTRAINT pk_check_date Check(yearOfBirth >= 1000 AND yearOfBirth <= YEAR(CURDATE(())");
     }
 
     /**
