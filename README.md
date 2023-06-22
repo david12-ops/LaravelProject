@@ -1,1 +1,2 @@
 # LaravelProject
+Očem je projekt?
